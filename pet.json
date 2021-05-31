@@ -1,0 +1,284 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Marketplace accelerators",
+    "version": "2.0",
+    "description": "1)\tAccelerator creation and publishing on Marketplace\n2)\tAccelerator installation / usage",
+    "contact": {
+      "name": "Tomas Krbec",
+      "email": "tomas.krbec@enehano.cz"
+    },
+    "x-logo": {
+      "url": ""
+    }
+  },
+  "servers": [
+    {
+      "url": "https://instance.salesforce.com/services/apexrest",
+      "description": "",
+      "x-last-modified": 1622495418701
+    }
+  ],
+  "paths": {
+    "/accelerator/{id}": {
+      "get": {
+        "tags": [],
+        "parameters": [
+          {
+            "deprecated": false,
+            "example": "?limit=5&start=10\"",
+            "name": "startId",
+            "description": "Latest Id obtained from SF to paginate the results",
+            "in": "query",
+            "required": false,
+            "allowEmptyValue": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "deprecated": false,
+            "name": "limit",
+            "description": "Size of a page",
+            "in": "query",
+            "required": false,
+            "allowEmptyValue": false,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "summary": "Get list of all acceletors",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "links": {
+                      "type": "object",
+                      "properties": {
+                        "base": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "next": {
+                          "type": "string",
+                          "minLength": 1
+                        },
+                        "prev": {
+                          "type": "string",
+                          "minLength": 1
+                        }
+                      },
+                      "required": [
+                        "base",
+                        "next",
+                        "prev"
+                      ]
+                    },
+                    "limit": {
+                      "type": "number"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "results": {
+                      "type": "array",
+                      "uniqueItems": true,
+                      "minItems": 1,
+                      "items": {
+                        "required": [
+                          "id",
+                          "productName",
+                          "productDescription",
+                          "publishDate",
+                          "partner",
+                          "productVersion"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "productName": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "productDescription": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "publishDate": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "partner": {
+                            "type": "string",
+                            "minLength": 1
+                          },
+                          "productVersion": {
+                            "type": "string",
+                            "minLength": 1
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "required": [
+                    "links",
+                    "limit",
+                    "size",
+                    "results"
+                  ],
+                  "x-examples": {
+                    "example-1": {
+                      "links": {
+                        "base": "https://instance.salesforce.com/services/apexrest",
+                        "next": "/accelerator?limit=2&startId=00658000003rJFwAAM",
+                        "prev": "/accelerator?limit=2&startId=00658000003rJFwAAF"
+                      },
+                      "limit": 2,
+                      "size": 20,
+                      "results": [
+                        {
+                          "id": "00658000003rJFwAAF",
+                          "productName": "My accelerator",
+                          "productDescription": "My Desc",
+                          "publishDate": "2021-31-05",
+                          "partner": "00658000003rJFwAAF",
+                          "productVersion": "0.1.0-SNAPSHOT"
+                        },
+                        {
+                          "id": "00658000003rJFwAAF",
+                          "productName": "My accelerator2",
+                          "productDescription": "My Desc2",
+                          "publishDate": "2021-31-05",
+                          "partner": "00658000003rJFwAAF",
+                          "productVersion": "0.2.0-SNAPSHOT"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "links": {
+                        "base": "https://instance.salesforce.com/services/apexrest",
+                        "next": "/accelerator?limit=2&startId=00658000003rJFwAAM",
+                        "prev": "/accelerator?limit=2&startId=00658000003rJFwAAF"
+                      },
+                      "limit": 2,
+                      "size": 20,
+                      "results": [
+                        {
+                          "id": "00658000003rJFwAAF",
+                          "productName": "My accelerator",
+                          "productDescription": "My Desc",
+                          "publishDate": "2021-31-05",
+                          "partner": "00658000003rJFwAAF",
+                          "productVersion": "0.1.0-SNAPSHOT"
+                        },
+                        {
+                          "id": "00658000003rJFwAAF",
+                          "productName": "My accelerator2",
+                          "productDescription": "My Desc2",
+                          "publishDate": "2021-31-05",
+                          "partner": "00658000003rJFwAAF",
+                          "productVersion": "0.2.0-SNAPSHOT"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "operationId": ""
+      },
+      "patch": {
+        "tags": [],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "x-examples": {
+                    "example-1": {
+                      "numberOfInstalls": "10",
+                      "latestInstall": "2021-30-05"
+                    }
+                  },
+                  "properties": {
+                    "numberOfInstalls": {
+                      "type": "integer"
+                    },
+                    "latestInstall": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "required": [
+                    "numberOfInstalls",
+                    "latestInstall"
+                  ]
+                },
+                "examples": {
+                  "example-1": {
+                    "value": {
+                      "numberOfInstalls": 10,
+                      "latestInstall": "2021-30-05"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "description": ""
+      },
+      "x-last-modified": 1622495408425,
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "description": "Id of a product"
+        }
+      ]
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "Session Id": {
+        "type": "apiKey",
+        "description": "Example: \n> Authorization: Bearer ZGVtbzpwQDU1dzByZA ==",
+        "name": "Session Id",
+        "in": "header",
+        "x-last-modified": 1622494935761
+      },
+      "OAuth2": {
+        "type": "oauth2",
+        "description": "Example: \n> Authorization: Bearer ZGVtbzpwQDU1dzByZA ==",
+        "x-last-modified": 1622494969750
+      }
+    },
+    "schemas": {},
+    "headers": {},
+    "responses": {},
+    "parameters": {}
+  },
+  "tags": [],
+  "security": []
+}
